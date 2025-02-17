@@ -10,7 +10,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 
-@Profile("v3")
+@Profile("v5")
 @Configuration
 public class MongoConfigurationV5 {
 	private final String uri;
