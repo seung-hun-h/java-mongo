@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "people")
-public class PersonV4 {
+public class PersonV5 {
 	private String id;
 	private String name;
 	private int age;
-	private List<OccupationV4> occupations;
+	private List<OccupationV5> occupations;
 
-	public PersonV4(String name, int age, List<OccupationV4> occupations) {
+	public PersonV5(String name, int age, List<OccupationV5> occupations) {
 		this.name = name;
 		this.age = age;
 		this.occupations = occupations;
@@ -29,7 +29,7 @@ public class PersonV4 {
 		return age;
 	}
 
-	public List<OccupationV4> getOccupations() {
+	public List<OccupationV5> getOccupations() {
 		return occupations;
 	}
 

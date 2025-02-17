@@ -12,11 +12,11 @@ import com.mongodb.client.MongoDatabase;
 
 @Profile("v3")
 @Configuration
-public class MongoConfigurationV4 {
+public class MongoConfigurationV5 {
 	private final String uri;
 	private final String database;
 
-	public MongoConfigurationV4(
+	public MongoConfigurationV5(
 		@Value("${mongo.uri}")
 		String uri,
 		@Value("${mongo.database}")
