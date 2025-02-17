@@ -55,9 +55,9 @@ public class MongoTestJobV1Configuration {
 
 						peopleCollection.find(eq("name", "seunghun")).forEach(document2 -> {
 							System.out.printf("%s found\n", document2);
-							peopleCollection.deleteOne(document2);
-							System.out.printf("%s deleted\n", document2);
 						});
+
+						peopleCollection.deleteMany(eq("name", "seunghun"));
 
 						return RepeatStatus.FINISHED;
 					}, platformTransactionManager
