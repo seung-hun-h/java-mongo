@@ -45,13 +45,18 @@ public class MongoTestJobV1Configuration {
 
 						MongoCollection<Document> peopleCollection = mongoDatabase.getCollection("people");
 
-						peopleCollection.insertOne(new Document("seunghun", person));
+						Document document1 = new Document();
+						document1.append("name", person.name());
+						document1.append("age", person.age());
+						document1.append("occupations", person.occupations());
+
+						peopleCollection.insertOne(document1);
 						System.out.printf("%s inserted\n", person);
 
-						peopleCollection.find(eq("seunghun.name", "seunghun")).forEach(document -> {
-							System.out.printf("%s found\n", document);
-							peopleCollection.deleteOne(document);
-							System.out.printf("%s deleted\n", document);
+						peopleCollection.find(eq("name", "seunghun")).forEach(document2 -> {
+							System.out.printf("%s found\n", document2);
+							peopleCollection.deleteOne(document2);
+							System.out.printf("%s deleted\n", document2);
 						});
 
 						return RepeatStatus.FINISHED;
