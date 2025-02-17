@@ -8,6 +8,10 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
-mongo:
+#  data: # v2
+#    mongodb:
+#      uri: mongodb://localhost:27017/javamongo
+#      database: javamongo
+mongo: #v1
   uri: mongodb://localhost:27017/javamongo
   database: javamongo
