@@ -21,16 +21,16 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.huno.javamongo.model.OccupationV3;
-import com.huno.javamongo.model.PersonV3;
+import com.huno.javamongo.model.OccupationV4;
+import com.huno.javamongo.model.PersonV4;
 
 @Configuration
-public class MongoTestJobV3Configuration {
+public class MongoTestJobV4Configuration {
 	private final JobRepository jobRepository;
 	private final PlatformTransactionManager platformTransactionManager;
 	private final MongoOperations mongoOperations;
 
-	public MongoTestJobV3Configuration(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager, MongoOperations mongoOperations) {
+	public MongoTestJobV4Configuration(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager, MongoOperations mongoOperations) {
 		this.jobRepository = jobRepository;
 		this.platformTransactionManager = platformTransactionManager;
 		this.mongoOperations = mongoOperations;
@@ -47,19 +47,19 @@ public class MongoTestJobV3Configuration {
 
 	private Step saveStep() {
 		return new StepBuilder("saveStep", jobRepository)
-			.<PersonV3, PersonV3>chunk(1, platformTransactionManager)
+			.<PersonV4, PersonV4>chunk(1, platformTransactionManager)
 			.reader(listItemReader())
 			.writer(mongoItemWriter())
 			.build();
 	}
 
-	private ListItemReader<PersonV3> listItemReader() {
-		PersonV3 person = new PersonV3("seunghun", 30, List.of(new OccupationV3("developer", "google", 10, LocalDateTime.now())));
+	private ListItemReader<PersonV4> listItemReader() {
+		PersonV4 person = new PersonV4("seunghun", 30, List.of(new OccupationV4("developer", "google", 10, LocalDateTime.now())));
 		return new ListItemReader<>(List.of(person));
 	}
 
-	private MongoItemWriter<PersonV3> mongoItemWriter() {
-		MongoItemWriter<PersonV3> writer = new MongoItemWriter<>();
+	private MongoItemWriter<PersonV4> mongoItemWriter() {
+		MongoItemWriter<PersonV4> writer = new MongoItemWriter<>();
 		writer.setTemplate(mongoOperations);
 		writer.setCollection("people");
 		return writer;
@@ -67,25 +67,25 @@ public class MongoTestJobV3Configuration {
 
 	private Step deleteStep() {
 		return new StepBuilder("deleteStep", jobRepository)
-			.<PersonV3, PersonV3>chunk(1, platformTransactionManager)
+			.<PersonV4, PersonV4>chunk(1, platformTransactionManager)
 			.reader(mongoItemReader())
 			.writer(mongoDeleteItemWriter())
 			.build();
 	}
 
-	private MongoCursorItemReader<PersonV3> mongoItemReader() {
-		MongoCursorItemReader<PersonV3> reader = new MongoCursorItemReader<>();
+	private MongoCursorItemReader<PersonV4> mongoItemReader() {
+		MongoCursorItemReader<PersonV4> reader = new MongoCursorItemReader<>();
 		reader.setQuery(query(Criteria.where("name").is("seunghun")));
 		reader.setTemplate(mongoOperations);
-		reader.setTargetType(PersonV3.class);
+		reader.setTargetType(PersonV4.class);
 		return reader;
 	}
 
-	private ItemWriter<PersonV3> mongoDeleteItemWriter() {
+	private ItemWriter<PersonV4> mongoDeleteItemWriter() {
 		return items -> {
 			items.forEach(item -> {
 				System.out.printf("%s deleted\n", item);
-				mongoOperations.remove(query(Criteria.where("name").is(item.getName())), PersonV3.class);
+				mongoOperations.remove(query(Criteria.where("name").is(item.getName())), PersonV4.class);
 			});
 		};
 	}

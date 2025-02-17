@@ -2,14 +2,14 @@ package com.huno.javamongo.model;
 
 import java.time.LocalDateTime;
 
-public class OccupationV3 {
+public class OccupationV4 {
 	private String id;
 	private String name;
 	private String company;
 	private int salary;
 	private LocalDateTime joinTime;
 
-	public OccupationV3(String name, String company, int salary, LocalDateTime joinTime) {
+	public OccupationV4(String name, String company, int salary, LocalDateTime joinTime) {
 		this.name = name;
 		this.company = company;
 		this.salary = salary;
