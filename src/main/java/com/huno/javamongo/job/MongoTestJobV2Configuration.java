@@ -5,7 +5,6 @@ import static org.springframework.data.mongodb.core.query.Query.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.bson.Document;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
