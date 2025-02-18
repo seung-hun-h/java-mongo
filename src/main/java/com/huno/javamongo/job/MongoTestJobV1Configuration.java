@@ -45,18 +45,13 @@ public class MongoTestJobV1Configuration {
 
 						Person person = new Person("seunghun", 30, List.of(new Occupation("developer", "google", 10, LocalDateTime.now())));
 
-						MongoCollection<Document> peopleCollection = mongoDatabase.getCollection("people");
+						MongoCollection<Person> peopleCollection = mongoDatabase.getCollection("people", Person.class);
 
-						Document document1 = new Document();
-						document1.append("name", person.name());
-						document1.append("age", person.age());
-						document1.append("occupations", person.occupations());
-
-						peopleCollection.insertOne(document1);
+						peopleCollection.insertOne(person);
 						System.out.printf("%s inserted\n", person);
 
-						peopleCollection.find(eq("name", "seunghun")).forEach(document2 -> {
-							System.out.printf("%s found\n", document2);
+						peopleCollection.find(eq("name", "seunghun")).forEach(p -> {
+							System.out.printf("%s found\n", p);
 						});
 
 						peopleCollection.deleteMany(eq("name", "seunghun"));
@@ -68,6 +63,4 @@ public class MongoTestJobV1Configuration {
 			.incrementer(new RunIdIncrementer())
 			.build();
 	}
-
-
 }
