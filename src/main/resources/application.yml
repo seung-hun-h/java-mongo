@@ -8,10 +8,15 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
-#  data: # v2
-#    mongodb:
-#      uri: mongodb://localhost:27017/javamongo
-#      database: javamongo
-mongo: #v1
+  data: # v2
+    mongodb:
+      uri: mongodb://localhost:27017/javamongo
+      database: javamongo
+---
+spring:
+  config:
+    activate:
+      on-profile: v1
+mongo:
   uri: mongodb://localhost:27017/javamongo
   database: javamongo

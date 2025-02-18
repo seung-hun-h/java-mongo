@@ -14,6 +14,7 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.huno.javamongo.model.Occupation;
@@ -21,6 +22,7 @@ import com.huno.javamongo.model.Person;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+@Profile("v1")
 @Configuration
 public class MongoTestJobV1Configuration {
 	private final JobRepository jobRepository;
