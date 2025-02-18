@@ -1,4 +1,4 @@
-package com.huno.javamongo.model;
+package com.huno.javamongo.model.v1;
 
 import java.time.LocalDateTime;
 

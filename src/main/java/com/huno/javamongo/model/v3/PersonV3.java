@@ -1,26 +1,28 @@
-package com.huno.javamongo.model;
+package com.huno.javamongo.model.v3;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "people")
-public class PersonV2 {
-	private String id;
+public class PersonV3 {
+	@Id
+	private ObjectId id;
 	private String name;
 	private int age;
-	private List<OccupationV2> occupations;
+	private List<OccupationV3> occupations;
 
-	public PersonV2(String name, int age, List<OccupationV2> occupations) {
+	public PersonV3(String name, int age, List<OccupationV3> occupations) {
 		this.name = name;
 		this.age = age;
 		this.occupations = occupations;
 	}
 
-	public String getId() {
+	public ObjectId getId() {
 		return id;
 	}
-
 	public String getName() {
 		return name;
 	}
@@ -29,7 +31,7 @@ public class PersonV2 {
 		return age;
 	}
 
-	public List<OccupationV2> getOccupations() {
+	public List<OccupationV3> getOccupations() {
 		return occupations;
 	}
 

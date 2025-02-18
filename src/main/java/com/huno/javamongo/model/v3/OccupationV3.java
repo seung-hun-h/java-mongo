@@ -1,23 +1,18 @@
-package com.huno.javamongo.model;
+package com.huno.javamongo.model.v3;
 
 import java.time.LocalDateTime;
 
-public class OccupationV2 {
-	private String id;
+public class OccupationV3 {
 	private String name;
 	private String company;
 	private int salary;
 	private LocalDateTime joinTime;
 
-	public OccupationV2(String name, String company, int salary, LocalDateTime joinTime) {
+	public OccupationV3(String name, String company, int salary, LocalDateTime joinTime) {
 		this.name = name;
 		this.company = company;
 		this.salary = salary;
 		this.joinTime = joinTime;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public String getName() {

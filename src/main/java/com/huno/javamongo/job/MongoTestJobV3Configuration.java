@@ -1,7 +1,5 @@
 package com.huno.javamongo.job;
 
-import static org.springframework.data.mongodb.core.query.Query.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,44 +12,44 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.huno.javamongo.model.v2.OccupationV2;
-import com.huno.javamongo.model.v2.PersonV2;
+import com.huno.javamongo.model.v3.OccupationV3;
+import com.huno.javamongo.model.v3.PersonV3;
+import com.huno.javamongo.repository.PersonRepository;
 
-@Profile("v2")
+@Profile("v3")
 @Configuration
-public class MongoTestJobV2Configuration {
+public class MongoTestJobV3Configuration {
 	private final JobRepository jobRepository;
 	private final PlatformTransactionManager platformTransactionManager;
-	private final MongoOperations mongoOperations;
+	private final PersonRepository personRepository;
 
-	public MongoTestJobV2Configuration(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager, MongoOperations mongoOperations) {
+	public MongoTestJobV3Configuration(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager, PersonRepository personRepository) {
 		this.jobRepository = jobRepository;
 		this.platformTransactionManager = platformTransactionManager;
-		this.mongoOperations = mongoOperations;
+		this.personRepository = personRepository;
 	}
 
 	@Bean
-	public Job mongoTestJobV2() {
-		return new JobBuilder("mongoTestJobV2", jobRepository)
-			.start(new StepBuilder("mongoTestStepV2", jobRepository)
+	public Job mongoTestJobV3() {
+		return new JobBuilder("mongoTestJobV3", jobRepository)
+			.start(new StepBuilder("mongoTestStepV3", jobRepository)
 				.tasklet(
 					(contribution, chunkContext) -> {
-						System.out.println("===mongoTestJobV2===");
+						System.out.println("===mongoTestJobV3===");
 
-						PersonV2 person = new PersonV2("seunghun", 30, List.of(new OccupationV2("developer", "google", 10, LocalDateTime.now())));
+						PersonV3 person = new PersonV3("seunghun", 30, List.of(new OccupationV3("developer", "google", 10, LocalDateTime.now())));
 
-						mongoOperations.insert(person);
+						personRepository.save(person);
 						System.out.printf("%s inserted\n", person);
 
-						mongoOperations.find(query(Criteria.where("name").is("seunghun")), PersonV2.class).forEach(p -> {
+
+						personRepository.findByName("seunghun").forEach(p -> {
 							System.out.printf("%s found\n", p);
 						});
 
-						mongoOperations.remove(query(Criteria.where("name").is("seunghun")), PersonV2.class);
+						personRepository.deleteAllByName("seunghun");
 
 						return RepeatStatus.FINISHED;
 					}, platformTransactionManager

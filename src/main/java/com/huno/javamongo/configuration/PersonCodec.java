@@ -10,8 +10,8 @@ import org.bson.codecs.Codec;
 import org.bson.codecs.DecoderContext;
 import org.bson.codecs.EncoderContext;
 
-import com.huno.javamongo.model.Occupation;
-import com.huno.javamongo.model.Person;
+import com.huno.javamongo.model.v1.Occupation;
+import com.huno.javamongo.model.v1.Person;
 
 public class PersonCodec implements Codec<Person> {
 

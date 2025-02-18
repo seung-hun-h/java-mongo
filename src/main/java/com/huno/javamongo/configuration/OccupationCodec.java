@@ -10,7 +10,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-import com.huno.javamongo.model.Occupation;
+import com.huno.javamongo.model.v1.Occupation;
 
 public class OccupationCodec implements Codec<Occupation> {
 

@@ -21,8 +21,8 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.huno.javamongo.model.OccupationV5;
-import com.huno.javamongo.model.PersonV5;
+import com.huno.javamongo.model.v5.OccupationV5;
+import com.huno.javamongo.model.v5.PersonV5;
 
 @Configuration
 public class MongoTestJobV5Configuration {
