@@ -16,19 +16,19 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.huno.javamongo.model.v3.OccupationV3;
 import com.huno.javamongo.model.v3.PersonV3;
-import com.huno.javamongo.repository.PersonRepository;
+import com.huno.javamongo.repository.PersonV3Repository;
 
 @Profile("v3")
 @Configuration
 public class MongoTestJobV3Configuration {
 	private final JobRepository jobRepository;
 	private final PlatformTransactionManager platformTransactionManager;
-	private final PersonRepository personRepository;
+	private final PersonV3Repository personV3Repository;
 
-	public MongoTestJobV3Configuration(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager, PersonRepository personRepository) {
+	public MongoTestJobV3Configuration(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager, PersonV3Repository personV3Repository) {
 		this.jobRepository = jobRepository;
 		this.platformTransactionManager = platformTransactionManager;
-		this.personRepository = personRepository;
+		this.personV3Repository = personV3Repository;
 	}
 
 	@Bean
@@ -41,15 +41,15 @@ public class MongoTestJobV3Configuration {
 
 						PersonV3 person = new PersonV3("seunghun", 30, List.of(new OccupationV3("developer", "google", 10, LocalDateTime.now())));
 
-						personRepository.save(person);
+						personV3Repository.save(person);
 						System.out.printf("%s inserted\n", person);
 
 
-						personRepository.findByName("seunghun").forEach(p -> {
+						personV3Repository.findByName("seunghun").forEach(p -> {
 							System.out.printf("%s found\n", p);
 						});
 
-						personRepository.deleteAllByName("seunghun");
+						personV3Repository.deleteAllByName("seunghun");
 
 						return RepeatStatus.FINISHED;
 					}, platformTransactionManager
