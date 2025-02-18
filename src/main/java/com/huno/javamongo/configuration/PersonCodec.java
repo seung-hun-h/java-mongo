@@ -14,8 +14,6 @@ import com.huno.javamongo.model.v1.Occupation;
 import com.huno.javamongo.model.v1.Person;
 
 public class PersonCodec implements Codec<Person> {
-
-	// Occupation 처리를 위한 Codec
 	private final Codec<Occupation> occupationCodec;
 
 	public PersonCodec(Codec<Occupation> occupationCodec) {

@@ -13,7 +13,6 @@ import java.time.ZoneId;
 import com.huno.javamongo.model.v1.Occupation;
 
 public class OccupationCodec implements Codec<Occupation> {
-
 	@Override
 	public void encode(BsonWriter writer, Occupation occupation, EncoderContext encoderContext) {
 		writer.writeStartDocument();
