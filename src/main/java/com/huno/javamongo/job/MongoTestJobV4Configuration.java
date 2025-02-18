@@ -12,6 +12,7 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemReader;
+import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,11 +60,11 @@ public class MongoTestJobV4Configuration {
 		return new ListItemReader<>(List.of(person1, person2));
 	}
 
-	private ItemWriter<PersonV4> repositoryItemWriter() {
-		return items -> {
-			personRepository.saveAll(items);
-			System.out.println("inserted: " + items);
-		};
+	private RepositoryItemWriter<PersonV4> repositoryItemWriter() {
+		RepositoryItemWriter<PersonV4> writer = new RepositoryItemWriter<>();
+		writer.setRepository(personRepository);
+		writer.setMethodName("save");
+		return writer;
 	}
 
 	private Step deleteStep() {
